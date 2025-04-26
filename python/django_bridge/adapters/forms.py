@@ -60,8 +60,10 @@ class FormAdapter(Adapter):
     js_constructor = "forms.Form"
 
     def js_args(self, form):
+        def field_with_name(field):
+            return FieldWithName(field.html_name, field)
         return [
-            [FieldWithName(name, form[name]) for name in form.fields.keys()],
+            [field_with_name(form[name]) for name in form.fields.keys()],
             form.errors,
         ]
 
